@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		{% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+		<title>
+			{% block title %}brainHive - correction des examens et exercices
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+
+		{% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+
+	</head>
+
+	<body class="bg-gray-50 ">
+		<header class="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-yellow-400 border-b border-gray-700 text-sm py-2.5 sm:py-4">
+			<nav class="flex items-center w-full px-4 mx-auto max-w-7xl basis-full sm:px-6 lg:px-8" aria-label="Global">
+				<div class="me-5 md:me-8">
+					<a class="flex-none text-xl font-semibold text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="/" aria-label="Brand">
+						<img src="https://brainhive.s3.eu-west-3.amazonaws.com/logo.png" alt="brainHive logo"/></a>
+				</div>
+
+				<div class="flex items-center justify-end w-full ms-auto sm:justify-between sm:gap-x-3 sm:order-3">
+					<div class="sm:hidden">
+						<button type="button" class="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full text-white hover:bg-white/20 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-1 focus:ring-gray-600">
+							<svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+						</button>
+					</div>
+
+					<div class="hidden mx-auto sm:block">
+						<label for="icon" class="sr-only">Search</label>
+						<div class="relative">
+							<div class="absolute inset-y-0 z-20 flex items-center pointer-events-none start-0 ps-4">
+								<svg class="flex-shrink-0 text-gray-900 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+							</div>
+							<input type="text" id="icon" name="icon" class="block px-4 py-2 text-sm text-gray-700 bg-transparent border-gray-700 rounded-lg shadow-sm ps-11 pe-20 w-92 md:w-96 focus:z-10 focus:border-gray-900 focus:ring-gray-600 placeholder:text-gray-500" placeholder="Search">
+
+						</div>
+					</div>
+
+					<div class="flex flex-row items-center justify-end gap-2">
+						<a
+							href="/create-post" class="w-[2.375rem] text-sm h-[2.375rem] inline-flex justify-center items-center gap-x-2 font-semibold rounded-full text-gray-900 hover:bg-white/20 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-1 focus:ring-gray-600">
+							
+							<svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+						</a>
+						<button type="button" class="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full text-gray-900 hover:bg-white/20 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-1 focus:ring-gray-600">
+							<svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+						</button>
+						<button type="button" class="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full text-gray-900 hover:bg-white/20 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-1 focus:ring-gray-600" data-hs-offcanvas="#hs-offcanvas-right">
+							<svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+						</button>
+
+						<div class="relative inline-flex hs-dropdown" data-hs-dropdown-placement="bottom-right">
+							<button id="hs-dropdown-with-header" type="button" class="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full text-white hover:bg-white/20 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-1 focus:ring-gray-600">
+								<img class="inline-block size-[38px] rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80" alt="Image Description">
+							</button>
+
+
+						</div>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<!-- ========== END HEADER ========== -->
+
+		<!-- ========== MAIN CONTENT ========== -->
+		<main
+			id="content" role="main">
+			<!-- Nav -->
+			<nav class="sticky -top-px bg-white text-sm font-medium text-black z-20 ring-1 ring-gray-900 ring-opacity-5 border-t shadow-sm shadow-gray-100 pt-6 md:pb-6 -mt-px dark:bg-slate-900 dark:border-gray-800 dark:shadow-slate-700/[.7]" aria-label="Jump links">
+				<div class="max-w-7xl snap-x w-full flex items-center overflow-x-auto px-4 sm:px-6 lg:px-8 pb-4 md:pb-0 mx-auto [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-slate-700 dark:[&::-webkit-scrollbar-thumb]:bg-slate-500 dark:bg-slate-900">
+					<div class="snap-center shrink-0 pe-5 sm:pe-8 sm:last-pe-0">
+						<a class="inline-flex items-center gap-x-2 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="/">Acceuil</a>
+					</div>
+					<div class="snap-center shrink-0 pe-5 sm:pe-8 sm:last:pe-0">
+						<a class="inline-flex items-center gap-x-2 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="/postpopulaire">Populaire</a>
+					</div>
+					<div class="snap-center shrink-0 pe-5 sm:pe-8 sm:last:pe-0">
+						<a class="inline-flex items-center gap-x-2 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="/saved">Sauveguardee</a>
+					</div>
+					<div class="snap-center shrink-0 pe-5 sm:pe-8 sm:last:pe-0">
+						<a class="inline-flex items-center gap-x-2 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#">Reclamation</a>
+					</div>
+					<div class="snap-center shrink-0 pe-5 sm:pe-8 sm:last:pe-0">
+						<a class="inline-flex items-center gap-x-2 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#">Produit</a>
+					</div>
+					<div class="snap-center shrink-0 pe-5 sm:pe-8 sm:last:pe-0">
+						<a class="inline-flex items-center gap-x-2 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#">Quiz</a>
+					</div>
+
+				</div>
+			</nav>
+			<!-- End Nav -->
+
+			<div class="max-w-7xl flex gap-8 mx-auto py-10 px-4 sm:px-6 lg:px-8 min-h-[75rem]">
+				<div class="w-[200px]">
+					<div class="sticky border-r-2 top-28">
+						<div class="flex flex-col gap-4">
+							<div class="flex flex-col gap-2">
+								<h2 class="text-lg font-semibold text-gray-900 dark:text-gray-300">Categorie</h2>
+								<ul class="flex flex-col gap-2">
+									<li>
+										<a class="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-500" href="/matiere/mathematique">Mathematique</a>
+									</li>
+									<li>
+										<a class="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-500" href="/matiere/physique">Physique</a>
+									</li>
+									<li>
+										<a class="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-500" href="/matiere/chimie">Chimie</a>
+									</li>
+									<li>
+										<a class="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-500" href="/matiere/biologie">Biologie</a>
+									</li>
+									<li>
+										<a class="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-500" href="/matiere/informatique">Informatique</a>
+									</li>
+									<li>
+										<a class="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-500" href="/matiere/algebre">Algebre</a>
+									</li>
+									<li>
+										<a class="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-500" href="/matiere/analyse">Analyse</a>
+									</li>
+									<li>
+										<a class="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-500" href="/matiere/francais">Francais</a>
+									</li>
+									<li>
+										<a class="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-500" href="/matiere/arabe">Arabe</a>
+									</li>
+									<li>
+										<a class="flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-500" href="/matiere/english">English</a>
+									</li>
+								</ul>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="w-full"> {% block content %}{% endblock %}
+					</div>
+				</div>
+
+			</main>
+			<!-- ========== END MAIN CONTENT ========== -->
+		</body>
+	</html>
+</body>

@@ -1,0 +1,87 @@
+{{ form_start(form) }}
+{{ form_widget(form._token) }}
+
+<div class="flex items-center justify-center w-full">
+    <div class="mb-5 bg-gray-800 p-10 w-1/2 ">
+        <h1 class="text-2xl font-semibold text-white text-center mb-5">{{ button_label }} un Quiz</h1>
+        <form class="max-w-sm mx-auto">
+            <div class="mb-5">
+                <label for="matiere"
+                       class="block mb-2 text-sm font-medium {{ form_errors(form.code) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Code</label>
+                <input
+                        name="{{ field_name(form.code) }}"
+                        value="{{ field_value(form.code) }}"
+                        type="text"
+                        id="matiere"
+                        class="{{ form_errors(form.code) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}"
+                        placeholder="{{ field_label(form.code) }}">
+                <p class="mt-2 text-sm text-red-700 dark:text-red-500">{{ form_errors(form.code) }}</p>
+            </div>
+
+            <div class="mb-5">
+                <label for="matiere"
+                       class="block mb-2 text-sm font-medium {{ form_errors(form.matiere) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Matiere</label>
+                <input
+                        name="{{ field_name(form.matiere) }}"
+                        value="{{ field_value(form.matiere) }}"
+                        type="text"
+                        id="matiere"
+                        class="{{ form_errors(form.matiere) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}"
+                        placeholder="{{ field_label(form.matiere) }}">
+                <p class="mt-2 text-sm text-red-700 dark:text-red-500">{{ form_errors(form.matiere) }}</p>
+            </div>
+
+            <div class="mb-5">
+                <label for="dureeEnMinute"
+                       class="block mb-2 text-sm font-medium {{ form_errors(form.dureeEnMinute) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Durée
+                    En Minute</label>
+                <input
+                        name="{{ field_name(form.dureeEnMinute) }}"
+                        value="{{ field_value(form.dureeEnMinute) }}"
+                        type="number"
+                        id="dureeEnMinute"
+                        class="{{ form_errors(form.dureeEnMinute) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}"
+                        placeholder="{{ field_label(form.dureeEnMinute) }}"
+                >
+                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form_errors(form.dureeEnMinute) }}</p>
+            </div>
+
+            <div class="mb-5">
+                <label for="disponibilitee"
+                       class="block mb-2 text-sm font-medium {{ form_errors(form.disponibilitee) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Disponibilitee</label>
+                <div class="flex items-center mb-4">
+                    <input {{ field_value(form.disponibilitee)  == 1 ? 'checked' : '' }} id="default-radio-1"
+                                                                                         type="radio"
+                                                                                         value="1"
+                                                                                         name="{{ field_name(form.disponibilitee) }}"
+                                                                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="default-radio-1"
+                           class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Oui</label>
+                </div>
+                <div class="flex items-center">
+                    <input {{ field_value(form.disponibilitee) == 0 ? 'checked' : '' }} id="default-radio-2"
+                                                                                        type="radio"
+                                                                                        value="0"
+                                                                                        name="{{ field_name(form.disponibilitee) }}"
+                                                                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="default-radio-2"
+                           class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Non</label>
+                </div>
+                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ form_errors(form.disponibilitee) }}</p>
+            </div>
+
+            <div class="w-full flex items-center justify-center">
+                <a href="{{ path('app_quiz_index') }}"
+                   class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 self-center mr-5">
+                    Annuler
+                </a>
+                <button type="submit"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 self-center">
+                    {{ button_label }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{ form_end(form) }}

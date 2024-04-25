@@ -1,0 +1,247 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	<div class="relative w-full border rounded-lg shadow-sm bg-card text-card-foreground" data-v0-t="card">
+		<div class="space-y-1.5 flex flex-col items-start gap-4 p-6">
+
+			<div class="flex items-start gap-4">
+				<span class="relative flex w-12 h-12 overflow-hidden border rounded-full shrink-0">
+					<img class="w-12 h-12 aspect-square" alt="@shadcn" src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?q=80&w=1776&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"/>
+				</span>
+				<div class="grid gap-1.5">
+					<span class="px-2 py-1 text-xs font-semibold text-yellow-800 bg-yellow-100 rounded-full hover:bg-yellow-200 w-fit">{{ post.matiere }}</span>
+
+					<div class="flex items-center gap-2">
+
+						<div class="font-medium">{{post.userid.prenom}}
+							{{post.userid.nom}}</div>
+
+
+						<div class="text-sm text-gray-500 dark:text-gray-400">
+							{{post.createdat|date('d/m/Y')}}
+						</div>
+					</div>
+
+					<div class="text-lg font-semibold">{{ post.title }}</div>
+
+					<div>
+						{{post.description}}
+					</div>
+					{% for file in fichiers %}
+						{% if file.type == "pdf" %}
+							<a href="{{asset(file.link)}}" class="text-blue-500 underline">Download PDF</a>
+						{% endif %}
+
+						{% if file.type == "image" %}
+							<img src={{asset(file.link)}} alt="image" class=" h-96"/>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<button id="save-button" onclick="savePost({{post.id}})" class="absolute flex items-center justify-center w-8 h-8 text-gray-900 rounded-full hover:text-white hover:bg-yellow-300 top-3 right-3">
+			{% if isSaved %}
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-fill" viewbox="0 0 16 16">
+					<path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2"/>
+				</svg>
+
+
+			{% else %}
+
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark" viewbox="0 0 16 16">
+					<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
+				</svg>
+			{% endif %}
+
+		</button>
+		<div class="flex flex-col w-full gap-4 p-6">
+			{%for comment in comments%}
+				<div class="grid w-full gap-2 pt-4 border-t">
+					<div class="flex items-center justify-between w-full gap-4">
+						<div class="flex items-center gap-4">
+							<span class="relative flex w-8 h-8 overflow-hidden border rounded-full shrink-0">
+								<img class="w-full h-full aspect-square" alt="@shadcn" src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?q=80&w=1776&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"/>
+							</span>
+							<div class="grid gap-1.5 text-xs">
+								<div class="flex items-center gap-2 font-semibold">
+									<span>
+										{{comment.userid.prenom}}
+										{{comment.userid.nom}}
+									</span>
+									{% if comment.verified %}
+										<button class="inline-flex items-center justify-center px-3 text-sm font-medium transition-colors bg-green-500 rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:text-yellow-300-foreground h-9">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+												<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+												<polyline points="22 4 12 14.01 9 11.01"></polyline>
+											</svg>
+
+										</button>
+									{% endif %}
+
+									{% if comment.userid.role == 1 and not comment.verified %}
+										<button id="verify-button" onclick="verifyComment({{comment.id}})" class="inline-flex items-center justify-center px-3 text-sm font-medium transition-colors rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-yellow-300 hover:text-yellow-300-foreground h-9">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+												<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+												<polyline points="22 4 12 14.01 9 11.01"></polyline>
+											</svg>
+
+										</button>
+									{% endif %}
+
+								</div>
+
+								<div class="text-gray-500 truncate ">
+									{{comment.content}}
+								</div>
+								<div class="text-gray-500 ">
+									{{comment.upvotes}}
+									upvotes •
+									{{comment.downvotes}}
+									downvotes
+								</div>
+							</div>
+						</div>
+						<div class="flex flex-col gap-2 justify-self-end">
+
+							{% if comment.upvoted %}
+								<button id="upvote-button" onclick="upvoteComment({{comment.id}})" class="inline-flex items-center justify-center px-3 text-sm font-medium transition-colors bg-yellow-300 rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-yellow-500 hover:text-yellow-300-foreground h-9">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+										<path d="M18 15l-6-6-6 6"></path>
+									</svg>
+								</button>
+							{% else %}
+								<button id="upvote-button" onclick="upvoteComment({{comment.id}})" class="inline-flex items-center justify-center px-3 text-sm font-medium transition-colors rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-yellow-300 hover:text-yellow-300-foreground h-9">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+										<path d="M18 15l-6-6-6 6"></path>
+									</svg>
+								</button>
+							{% endif %}
+							{% if comment.downvoted %}
+								<button id="downvote-button" onclick="downvoteComment({{comment.id}})" class="inline-flex items-center justify-center px-3 text-sm font-medium transition-colors bg-yellow-300 rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-yellow-500 hover:text-yellow-300-foreground h-9">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+										<path d="M6 9l6 6 6-6"></path>
+									</svg>
+								</button>
+							{% else %}
+								<button id="downvote-button" onclick="downvoteComment({{comment.id}})" class="inline-flex items-center justify-center px-3 text-sm font-medium transition-colors rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-yellow-300 hover:text-yellow-300-foreground h-9">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+										<path d="m6 9 6 6 6-6"></path>
+									</svg>
+								</button>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				{%endfor%}
+				<div class="flex items-center w-full gap-4">
+					<span class="relative flex w-8 h-8 overflow-hidden border rounded-full shrink-0">
+						<img class="w-full h-full aspect-square" alt="@shadcn" src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?q=80&w=1776&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"/>
+					</span>
+					{{ form_start(CommentForm) }}
+					<div class="grid gap-1.5 text-xs w-[920px]">
+						<div class="font-semibold">Your Name</div>
+						<div class="flex gap-2">
+							<input name="{{ field_name(CommentForm.content) }}" class="flex w-full h-10 px-3 py-2 text-sm text-gray-500 border rounded-md border-input bg-background ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:text-gray-400" placeholder="Add a comment..."/>
+							<button type="submit" class="inline-flex items-center justify-center px-3 text-sm font-medium transition-colors bg-yellow-300 rounded-md whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-yellow-300-foreground hover:bg-yellow-500 h-9">
+								Post
+							</button>
+						</div>
+					</div>
+					{{ form_end(CommentForm) }}
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function savePost(id) {
+let saveButton = document.getElementById('save-button');
+console.log(saveButton);
+var xhr = new XMLHttpRequest();
+// atttache the id as params
+xhr.open('POST', `/${id}/save-post`, true);
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+xhr.onreadystatechange = function () {
+if (xhr.readyState == 4 && xhr.status == 200) {
+// Handle the response if needed
+// if satate = saved change the icon
+if (xhr.responseText === `"saved"`) {
+saveButton.innerHTML = `
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-fill" viewbox="0 0 16 16">
+					<path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2"/>
+				</svg>
+`;
+} else {
+saveButton.innerHTML = `
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark" viewbox="0 0 16 16">
+					<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
+				</svg>
+`;
+}
+}
+};
+xhr.send();
+}
+
+let verifyButton = document.getElementById('verify-button');
+let upvoteButton = document.getElementById('upvote-button');
+let downvoteButton = document.getElementById('downvote-button');
+
+function upvoteComment(id) {
+console.log("upvote comment", id);
+var xhr = new XMLHttpRequest();
+// atttache the id as params
+xhr.open('POST', `/${id}/upvote`, true);
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+xhr.onreadystatechange = function () {
+if (xhr.readyState == 4 && xhr.status == 200) {
+if (xhr.responseText === `"upvoted"`) {
+window.location.reload();
+}
+if (xhr.responseText === `"removed"`) {
+window.location.reload();
+}
+}
+};
+xhr.send();
+}
+
+function downvoteComment(id) {
+console.log("downvote comment", id);
+var xhr = new XMLHttpRequest();
+// atttache the id as params
+xhr.open('POST', `/${id}/downvote`, true);
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+xhr.onreadystatechange = function () {
+if (xhr.readyState == 4 && xhr.status == 200) {
+if (xhr.responseText === `"downvoted"`) {
+window.location.reload();
+}
+if (xhr.responseText === `"removed"`) {
+window.location.reload();
+}
+}
+};
+xhr.send();
+}
+
+function verifyComment(id) {
+console.log("verify comment", id);
+var xhr = new XMLHttpRequest();
+// atttache the id as params
+xhr.open('POST', `/${id}/verif-comment`, true);
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+xhr.onreadystatechange = function () {
+if (xhr.readyState == 4 && xhr.status == 200) {
+if (xhr.responseText === `"verified"`) {
+window.location.reload();
+}
+if (xhr.responseText === `"removed"`) {
+window.location.reload();
+}
+}
+};
+xhr.send();
+}
+	</script>
+{% endblock %}

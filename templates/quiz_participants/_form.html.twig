@@ -1,0 +1,57 @@
+{{ form_start(form) }}
+    {{ form_widget(form._token) }}
+
+    {% set index = 0 %}
+<h1 class="text-2xl font-bold text-gray-900 dark:text-white text-center">Quiz {{ quiz_participant.quiz.matiere }}</h1>
+
+{% for question in questions %}
+    {% set index = index + 1 %}
+    <div class="mb-5">
+        <label for="email"
+               class="block mb-2 text-lg font-bold text-gray-900 dark:text-white">Question {{ index }}
+            : {{ question.titre }}</label>
+        <fieldset>
+            <div class="flex items-center space-x-2 mb-4">
+                <input type="radio"
+                       id="quiz_participants_question_{{ question.id }}_0"
+                       name="{{ field_name(form['question_'~question.id]) }}"
+                       value="1"
+                >
+                <label for="quiz_participants_question_{{ question.id }}_0"
+                       class="flex items-center cursor-pointer text-sm space-x-2">
+                    <span class="font-semibold">Reponse 1: </span> <span>{{ question.choix1 }}</span>
+                </label>
+            </div>
+
+            <div class="flex items-center mb-4 space-x-2">
+                <input type="radio"
+                       id="quiz_participants_question_{{ question.id }}_1"
+                       name="{{ field_name(form['question_'~question.id]) }}"
+                       value="2"
+                >
+                <label id="quiz_participants_question_{{ question.id }}_1"
+                       class="flex items-center cursor-pointer space-x-2 text-sm">
+                    <span class="font-semibold">Reponse 2: </span> <span>{{ question.choix2 }}</span>
+                </label>
+            </div>
+
+            <div class="flex items-center mb-4 space-x-2">
+                <input type="radio"
+                       id="quiz_participants_question_{{ question.id }}_2"
+                       name="{{ field_name(form['question_'~question.id]) }}"
+                       value="3"
+                >
+                <label for="quiz_participants_question_{{ question.id }}_2"
+                       class="flex items-center cursor-pointe space-x-2 text-sm">
+                    <span class="font-semibold">Reponse 3: </span> <span>{{ question.choix3 }}</span>
+                </label>
+            </div>
+        </fieldset>
+    </div>
+{% endfor %}
+
+<button type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+    Submit
+</button>
+{{ form_end(form) }}

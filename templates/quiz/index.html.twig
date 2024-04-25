@@ -1,0 +1,80 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            --font-sans: 'Inter';
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="inline-flex w-full py-3 justify-between">
+        <h3 class="text-xl mb-3 font-semibold text-gray-900 dark:text-white">Liste des Quiz</h3>
+        <a href="{{ path('app_quiz_new') }}" class="inline-flex items-center justify-center px-4 py-2 ml-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+            Ajouter un Quiz
+        </a>
+        </div>
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Code
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Matiere
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Date Création
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Durée En Minute
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Disponibilitee
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Createur
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    <span class="sr-only">Edit</span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for quiz in quizzes %}
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ quiz.code }}
+                    </td>
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ quiz.matiere }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ quiz.dateCreation|date('d/m/Y') }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ quiz.dureeEnMinute }} min
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ quiz.disponibilitee }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ quiz.createur ? quiz.createur.nom ~ ' ' ~ quiz.createur.prenom : 'No User'}}
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="inline-flex items-center self-end gap-3">
+                            <a href="{{ path('app_quiz_edit', {'id': quiz.id}) }}"
+                               class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Modifier</a>
+                            <a href="{{ path('app_quiz_delete', {'id': quiz.id}) }}"
+                               class="font-medium text-red-600 dark:text-red-500 hover:underline">Supprimer</a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

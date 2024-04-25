@@ -1,0 +1,138 @@
+{{ form_start(form) }}
+{{ form_widget(form._token) }}
+
+<div class="flex items-center justify-center w-full">
+    <div class="mb-5 dark:bg-gray-800 p-10 w-1/2 ">
+        <h1 class="text-2xl font-semibold text-white text-center mb-5">{{ button_label }} une Question</h1>
+        <form class="max-w-sm mx-auto">
+            <div class="mb-5">
+                <label for="titre"
+                       class="block mb-2 text-sm font-medium {{ form_errors(form.titre) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">{{ form_label(form.titre) }}</label>
+                <input
+                        name="{{ field_name(form.titre) }}"
+                        value="{{ field_value(form.titre) }}"
+                        type="text"
+                        id="titre"
+                        class="{{ form_errors(form.titre) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}"
+                        placeholder="{{ field_label(form.titre) }}">
+                <p class="mt-2 text-sm text-green-600 dark:text-green-500">{{ form_errors(form.titre) }}</p>
+            </div>
+
+            <div class="mb-5">
+                <label for="choix1"
+                       class="block mb-2 text-sm font-medium {{ form_errors(form.choix1) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">{{ field_label(form.choix1) }}</label>
+                <input
+                        name="{{ field_name(form.choix1) }}"
+                        value="{{ field_value(form.choix1) }}"
+                        type="text"
+                        id="choix1"
+                        class="{{ form_errors(form.choix1) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}"
+                        placeholder="{{ field_label(form.choix1) }}">
+                <p class="mt-2 text-sm text-green-600 dark:text-green-500">{{ form_errors(form.choix1) }}</p>
+            </div>
+
+            <div class="mb-5">
+                <label for="choix2"
+                       class="block mb-2 text-sm font-medium {{ form_errors(form.choix2) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">{{ field_label(form.choix2) }}</label>
+                <input
+                        name="{{ field_name(form.choix2) }}"
+                        value="{{ field_value(form.choix2) }}"
+                        type="text"
+                        id="choix2"
+                        class="{{ form_errors(form.choix2) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}"
+                        placeholder="{{ field_label(form.choix2) }}">
+                <p class="mt-2 text-sm text-green-600 dark:text-green-500">{{ form_errors(form.choix2) }}</p>
+            </div>
+
+            <div class="mb-5">
+                <label for="choix3"
+                       class="block mb-2 text-sm font-medium {{ form_errors(form.choix3) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">{{ field_label(form.choix3) }}</label>
+                <input
+                        name="{{ field_name(form.choix3) }}"
+                        value="{{ field_value(form.choix3) }}"
+                        type="text"
+                        id="choix3"
+                        class="{{ form_errors(form.choix3) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}"
+                        placeholder="{{ field_label(form.choix3) }}">
+                <p class="mt-2 text-sm text-green-600 dark:text-green-500">{{ form_errors(form.choix3) }}</p>
+            </div>
+
+            <div class="mb-5">
+                <label for="reponseCorrecte"
+                       class="block mb-2 text-sm font-medium {{ form_errors(form.reponseCorrecte) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Réponse
+                    Correcte</label>
+                <div class="flex items-center gap-5">
+                    <div>
+                        <input {{ field_value(form.reponseCorrecte) == '1' ? 'checked' : '' }} id="reponse-correcte-1"
+                                                                                               type="radio"
+                                                                                               value="1"
+                                                                                               name="{{ field_name(form.reponseCorrecte) }}"
+                                                                                               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="reponse-correcte-1"
+                               class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">1</label>
+                    </div>
+                    <div>
+                        <input {{ field_value(form.reponseCorrecte) == '2' ? 'checked' : '' }} id="reponse-correcte-2"
+                                                                                               type="radio"
+                                                                                               value="2"
+                                                                                               name="{{ field_name(form.reponseCorrecte) }}"
+                                                                                               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="reponse-correcte-2"
+                               class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">2</label>
+                    </div>
+                    <div>
+                        <input {{ field_value(form.reponseCorrecte) == '3' ? 'checked' : '' }} id="reponse-correcte-3"
+                                                                                               type="radio"
+                                                                                               value="3"
+                                                                                               name="{{ field_name(form.reponseCorrecte) }}"
+                                                                                               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="reponse-correcte-3"
+                               class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">3</label>
+                    </div>
+                </div>
+                <p class="mt-2 text-sm text-green-600 dark:text-green-500">{{ form_errors(form.reponseCorrecte) }}</p>
+            </div>
+
+            <div class="mb-5">
+                <label for="quiz"
+                       class="block mb-2 text-sm font-medium {{ form_errors(form.quiz) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Quiz</label>
+                <select name="{{ field_name(form.quiz) }}"
+                        id="quiz"
+                        class="{{ form_errors(form.quiz) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}">
+                    <option value="" selected disabled>Sélectionnez un quiz</option>
+                    {% for quiz in quizzes %}
+                        <option {{ field_value(form.quiz) == quiz.id ? 'selected' : ''}} value="{{ quiz.id }}">{{ quiz.matiere }} ({{ quiz.code }})</option>
+                    {% endfor %}
+                </select>
+                <p class="mt-2 text-sm text-green-600 dark:text-green-500">{{ form_errors(form.quiz) }}</p>
+            </div>
+
+            <div class="mb-5">
+                <label for="score"
+                       class="block mb-2 text-sm font-medium {{ form_errors(form.score) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Score</label>
+                <input
+                        name="{{ field_name(form.score) }}"
+                        value="{{ field_value(form.score) }}"
+                        type="number"
+                        id="score"
+                        class="{{ form_errors(form.score) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}"
+                        placeholder="{{ field_label(form.score) }}"
+                >
+                <p class="mt-2 text-sm text-green-600 dark:text-green-500">{{ form_errors(form.score) }}</p>
+            </div>
+
+            <div class="w-full flex items-center justify-center">
+                <a href="{{ path('app_question_index') }}"
+                   class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 self-center mr-5">
+                    Annuler
+                </a>
+                <button type="submit"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 self-center">
+                    {{ button_label }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{ form_end(form) }}
