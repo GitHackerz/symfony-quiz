@@ -18,6 +18,9 @@ class QuestionController extends AbstractController
     #[Route('/', name: 'app_question_index', methods: ['GET'])]
     public function index(QuestionRepository $questionRepository): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         $questions = $questionRepository->findAll();
 
         foreach ($questions as $question) {
@@ -35,6 +38,9 @@ class QuestionController extends AbstractController
     #[Route('/new', name: 'app_question_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         $question = new Question();
         $form = $this->createForm(QuestionType::class, $question);
         $form->handleRequest($request);
@@ -57,6 +63,9 @@ class QuestionController extends AbstractController
     #[Route('/{id}', name: 'app_question_show', methods: ['GET'])]
     public function show(Question $question): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         return $this->render('question/show.html.twig', [
             'question' => $question,
         ]);
@@ -65,6 +74,9 @@ class QuestionController extends AbstractController
     #[Route('/{id}/edit', name: 'app_question_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Question $question, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         $choices = explode(" ", $question->getChoix());
 
         $question->setChoix1(explode('1)', $choices[0])[1]);
@@ -90,6 +102,9 @@ class QuestionController extends AbstractController
     #[Route('/{id}/delete', name: 'app_question_delete', methods: ['GET'])]
     public function delete(Request $request, Question $question, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         $entityManager->remove($question);
         $entityManager->flush();
 

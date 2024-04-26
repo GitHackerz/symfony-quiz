@@ -21,7 +21,7 @@ class QuizRepository extends ServiceEntityRepository
         parent::__construct($registry, Quiz::class);
     }
 
-    public function findPassedQuiz($userId)
+    public function findPassedQuiz(int $userId)
     {
         return $this->createQueryBuilder('q')
             ->innerJoin('q.quizParticipants', 'qp')

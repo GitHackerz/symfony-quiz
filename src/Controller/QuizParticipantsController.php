@@ -23,33 +23,15 @@ class QuizParticipantsController extends AbstractController
     #[Route('/', name: 'app_quiz_participants_index', methods: ['GET'])]
     public function index(QuizRepository $quizRepository, QuizParticipantsRepository $quizParticipantsRepository): Response
     {
-        $passedQuizzes = $quizRepository->findPassedQuiz(1);
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
+        $passedQuizzes = $quizRepository->findPassedQuiz($this->getUser()->getId());
 
         return $this->render('quiz_participants/index.html.twig', [
             'quizzes' => $quizRepository->findAll(),
             'quizParticipants' => $quizParticipantsRepository->findAll(),
             'passedQuizzes' => $passedQuizzes,
-        ]);
-    }
-
-    #[Route('/new', name: 'app_quiz_participants_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $quizParticipant = new QuizParticipants();
-        $form = $this->createForm(QuizParticipantsType::class, $quizParticipant);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($quizParticipant);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_quiz_participants_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('quiz_participants/new.html.twig', [
-            'quiz_participant' => $quizParticipant,
-            'form' => $form,
-
         ]);
     }
 
@@ -59,14 +41,18 @@ class QuizParticipantsController extends AbstractController
     #[Route('/{id}/passer-quiz', name: 'app_quizparticipants_passerquiz', methods: ['GET', 'POST'])]
     public function passerQuiz(Request $request, EntityManagerInterface $entityManager, Quiz $quiz, TexterInterface $texter): Response
     {
-        $smsMessage = "You have a new quiz to take " . $quiz->getMatiere() . " (" . $quiz->getCode() . ")";
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
+        $smsMessage = "Tu as un nouveau quiz à passer " . $quiz->getMatiere() . " (" . $quiz->getCode() . ")";
         $sms = new SmsMessage("+21658906040", $smsMessage);
         $texter->send($sms);
 
+        $this->addFlash('success', 'Le Quiz a été démarré avec succès vous avez 2 minutes pour le terminer');
+
         $quizParticipant = new QuizParticipants();
         $quizParticipant->setQuiz($quiz);
-        $participant = $entityManager->getRepository(User::class)->find(1);
-        $quizParticipant->setParticipant($participant);
+        $quizParticipant->setParticipant($this->getUser());
         $quizParticipant->setScore(0);
         $questions = $quiz->getQuestions();
         $responses = [];

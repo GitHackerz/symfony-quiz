@@ -3,13 +3,20 @@
 {% block content %}
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="inline-flex w-full py-3 justify-between">
-            <h3 class="text-xl mb-3 font-semibold text-gray-900 dark:text-white">Liste des questions</h3>
+            <div class="inline-flex items-center gap-5 w-[500px]">
+                <h3 class="text-xl mb-3 font-semibold text-gray-900 dark:text-white">Liste des Questions</h3>
+                <input
+                        id="search-input"
+                        type="text"
+                        class=" w-1/2 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        placeholder="Recherche">
+            </div>
             <a href="{{ path('app_question_new') }}"
                class="inline-flex items-center justify-center px-4 py-2 ml-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
                 Ajouter une Question
             </a>
         </div>
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <table id="question-table" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
@@ -68,4 +75,28 @@
             </tbody>
         </table>
     </div>
+
+    {% block javascripts %}
+        <script>
+            document.querySelector('#search-input').addEventListener('input', function (e) {
+                var query = e.target.value.toLowerCase();
+                var rows = document.querySelectorAll('#question-table tbody tr');
+
+                rows.forEach(function (row) {
+                    var rowText = row.textContent.toLowerCase();
+
+                    // remove Modifier Supprimer
+                    rowText = rowText.replace('modifier', '');
+                    rowText = rowText.replace('supprimer', '');
+
+                    console.log(rowText);
+                    if (rowText.includes(query)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        </script>
+    {% endblock %}
 {% endblock %}

@@ -18,6 +18,9 @@ class QuizController extends AbstractController
     #[Route('/', name: 'app_quiz_index', methods: ['GET'])]
     public function index(QuizRepository $quizRepository): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         return $this->render('quiz/index.html.twig', [
             'quizzes' => $quizRepository->findAll(),
         ]);
@@ -26,8 +29,11 @@ class QuizController extends AbstractController
     #[Route('/new', name: 'app_quiz_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         $quiz = new Quiz();
-        $quiz->setCreateur($entityManager->getRepository(User::class)->find(1));
+        $quiz->setCreateur($this->getUser());
         $quiz->setDateCreation(new \DateTime('now', new \DateTimeZone('Africa/Tunis')));
         $form = $this->createForm(QuizType::class, $quiz);
         $form->handleRequest($request);
@@ -48,6 +54,9 @@ class QuizController extends AbstractController
     #[Route('/{id}', name: 'app_quiz_show', methods: ['GET'])]
     public function show(Quiz $quiz): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         return $this->render('quiz/show.html.twig', [
             'quiz' => $quiz,
         ]);
@@ -56,6 +65,9 @@ class QuizController extends AbstractController
     #[Route('/{id}/edit', name: 'app_quiz_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Quiz $quiz, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         $form = $this->createForm(QuizType::class, $quiz);
         $form->handleRequest($request);
 
@@ -74,9 +86,11 @@ class QuizController extends AbstractController
     #[Route('/{id}/delete', name: 'app_quiz_delete', methods: ['GET'])]
     public function delete(Request $request, Quiz $quiz, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         $entityManager->remove($quiz);
         $entityManager->flush();
-
 
         return $this->redirectToRoute('app_quiz_index', [], Response::HTTP_SEE_OTHER);
     }

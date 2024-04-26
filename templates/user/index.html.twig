@@ -5,19 +5,18 @@
 {% block content %}
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="inline-flex w-full py-3 justify-between">
-            qsdqs
-            <div class="inline-flex items-center w-full gap-5">
-                <h3 class="text-xl mb-3 font-semibold text-gray-900 dark:text-white">Liste des Quiz</h3>
+            <div class="inline-flex items-center w-[500px] gap-5">
+                <h3 class="text-xl mb-3 font-semibold text-gray-900 dark:text-white">Liste des Utilisateurs</h3>
                 <input
                         id="search-input"
                         type="text"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                         placeholder="Recherche">
             </div>
             <div class="w-fit">
                 <a href="{{ path('app_user_new') }}"
                    class="w-[150px] inline-flex items-center justify-center px-4 py-2 ml-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-lg active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
-                    Ajouter User
+                    Ajouter Utilisateur
                 </a>
             </div>
         </div>
