@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <!--
+    // v0 by Vercel.
+    // https://v0.dev/t/WNH3YZBak7w
+    -->
+
+    <div class="flex flex-col items-center w-full gap-4 p-4 md:gap-8 md:p-10">
+        <div class="w-full max-w-3xl">
+            <div class="rounded-lg border border-gray-200 dark:border-gray-800">
+                <div class="bg-gray-100/40 px-4 py-2 grid gap-2 md:gap-4 items-center text-sm md:text-base dark:bg-gray-800/40">
+                    <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="h-6 w-6"
+                    >
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <h1 class="font-semibold text-lg md:text-xl">Statistics Quiz Results</h1>
+                    <time class="ml-auto font-normal text-xs md:text-sm">Completed on {{ date('now') | date('d M Y') }}</time>
+                </div>
+                <div class="grid gap-4 p-4 md:gap-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex flex-col">
+                            <div class="text-sm text-gray-500 dark:text-gray-400">Quiz Title</div>
+                            <div class="font-semibold">{{ quiz_participant.quiz.matiere }}
+                                ({{ quiz_participant.quiz.code }})
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="text-sm text-gray-500 dark:text-gray-400">Your Score</div>
+                            <div class="font-semibold text-xl">{{ quizPercentage }}%</div>
+                        </div>
+                    </div>
+                    {% set index = 0 %}
+                    {% for question in questions %}
+                        {% set index = index + 1 %}
+                        <div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+                            <div class="p-6">
+                                <div class="inline-flex justify-between items-center w-full">
+                                    <div class="flex flex-col gap-2 md:gap-4 text-sm">
+                                        <div class="flex items-center">
+                                            <dt class="font-semibold">Question {{ index }}:</dt>
+                                            <dd class="ml-2">{{ question.titre }}</dd>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <dt class="font-semibold">Your Answer:</dt>
+                                            <dd class="ml-2">{{ responses[question.id] == 1 ? question.choix1 :
+                                                responses[question.id] == 2 ? question.choix2 :
+                                                responses[question.id] == 3 ? question.choix3 : 'No Answer' }}</dd>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <dt class="font-semibold">Correct Answer:</dt>
+                                            <dd class="ml-2">
+                                                {{ question.reponseCorrecte == 1 ? question.choix1 :
+                                                question.reponseCorrecte == 2 ? question.choix2 :
+                                                question.choix3 }}
+                                            </dd>
+                                        </div>
+                                    </div>
+                                    <div class="px-3 py-1.5 bg-green-100 text-green-600 font-bold rounded-xl">
+                                        Correct
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

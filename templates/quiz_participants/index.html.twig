@@ -9,7 +9,7 @@
         <div class="inline-flex flex-wrap gap-4">
             {% set passedQuizIds = passedQuizzes|map(q => q.id) %}
             {% for quiz in quizzes %}
-                {% if quiz.disponibilitee == 1 %}
+                {% if quiz.disponibilitee == 1 and quiz.questions | length > 0 %}
                     <div style="width: 350px"
                          class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ quiz.matiere }}</h5>
@@ -21,12 +21,13 @@
                         </p>
                         {% if quiz.id in passedQuizIds %}
                             <div class="inline-flex items-center justify-between w-full">
-                           <button disabled class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-gray-400 rounded-lg cursor-not-allowed">
-                               Quiz passé
-                            </button>
-                            <h4 class="mt-2 text-sm font-medium text-center text-gray-700 dark:text-gray-400">
-                                Note: {{ quizParticipants|filter(qp => qp.quiz.id == quiz.id)[0].score}}
-                            </h4>
+                                <button disabled
+                                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-gray-400 rounded-lg cursor-not-allowed">
+                                    Quiz passé
+                                </button>
+                                <h4 class="mt-2 text-sm font-medium text-center text-gray-700 dark:text-gray-400">
+                                    Note: {{ quizParticipants|filter(qp => qp.quiz.id == quiz.id)[0].score }}
+                                </h4>
                             </div>
                         {% else %}
                             <a href="{{ path('app_quizparticipants_passerquiz', {'id': quiz.id}) }}"

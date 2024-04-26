@@ -4,7 +4,8 @@ namespace App\Form;
 
 use App\Entity\QuizParticipants;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,26 +16,17 @@ class QuizParticipantsType extends AbstractType
         $questions = $options['questions'];
 
         foreach ($questions as $question) {
-            $builder->add('question_' . $question->getId(), ChoiceType::class, [
-                'label' => $question->getTitre(),
-                'choices' => [
-                    $question->getChoix1() => 1,
-                    $question->getChoix2() => 2,
-                    $question->getChoix3() => 3,
-                ],
-                'expanded' => true,
-                'multiple' => false,
-                'required' => true,
+            $builder->add('question_' . $question->getId(), HiddenType::class, [
+                'mapped' => false, // This field is not mapped to any property of the entity
             ]);
         }
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'questions' => [], // Pass quiz object to the form
+            'data_class' => QuizParticipants::class,
+            'questions' => [], // Define an empty array as default for questions
         ]);
-
     }
 }

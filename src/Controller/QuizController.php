@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Quiz;
-use App\Entity\Utilisateur;
+use App\Entity\User;
 use App\Form\QuizType;
 use App\Repository\QuizRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,7 +27,7 @@ class QuizController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $quiz = new Quiz();
-        $quiz->setCreateur($entityManager->getRepository(Utilisateur::class)->find(1));
+        $quiz->setCreateur($entityManager->getRepository(User::class)->find(1));
         $quiz->setDateCreation(new \DateTime('now', new \DateTimeZone('Africa/Tunis')));
         $form = $this->createForm(QuizType::class, $quiz);
         $form->handleRequest($request);

@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Quiz;
 use App\Entity\QuizParticipants;
-use App\Entity\Utilisateur;
+use App\Entity\User;
 use App\Form\QuizParticipantsType;
 use App\Repository\QuizParticipantsRepository;
 use App\Repository\QuizRepository;
@@ -12,6 +12,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Notifier\Exception\TransportExceptionInterface;
+use Symfony\Component\Notifier\Message\SmsMessage;
+use Symfony\Component\Notifier\TexterInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/quiz')]
@@ -50,15 +53,23 @@ class QuizParticipantsController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     */
     #[Route('/{id}/passer-quiz', name: 'app_quizparticipants_passerquiz', methods: ['GET', 'POST'])]
-    public function passerQuiz(Request $request, EntityManagerInterface $entityManager, Quiz $quiz): Response
+    public function passerQuiz(Request $request, EntityManagerInterface $entityManager, Quiz $quiz, TexterInterface $texter): Response
     {
+        $smsMessage = "You have a new quiz to take " . $quiz->getMatiere() . " (" . $quiz->getCode() . ")";
+        $sms = new SmsMessage("+21658906040", $smsMessage);
+        $texter->send($sms);
+
         $quizParticipant = new QuizParticipants();
         $quizParticipant->setQuiz($quiz);
-        $participant = $entityManager->getRepository(Utilisateur::class)->find(1);
+        $participant = $entityManager->getRepository(User::class)->find(1);
         $quizParticipant->setParticipant($participant);
         $quizParticipant->setScore(0);
         $questions = $quiz->getQuestions();
+        $responses = [];
 
         foreach ($questions as $question) {
             $choices = explode(" ", $question->getChoix());
@@ -74,16 +85,30 @@ class QuizParticipantsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
+            $total = 0;
             foreach ($questions as $question) {
-                $reponse = $form->get('question_' . $question->getId())->getData();
+                $total += $question->getScore();
+                $field_name = 'question_' . $question->getId();
+                $reponse = $form->get($field_name)->getData();
+                $responses[$question->getId()] = $reponse;
+
                 if ($reponse == $question->getReponseCorrecte()) {
                     $quizParticipant->setScore($quizParticipant->getScore() + $question->getScore());
                 }
             }
+
+            $percentage = ($quizParticipant->getScore() / $total) * 100;
             $entityManager->persist($quizParticipant);
             $entityManager->flush();
-            return $this->redirectToRoute('app_quiz_participants_index', [], Response::HTTP_SEE_OTHER);
+
+            return $this->renderForm('quiz_participants/resultat-quiz.html.twig', [
+                'quiz_participant' => $quizParticipant,
+                'questions' => $quiz->getQuestions(),
+                'responses' => $responses,
+                'quizPercentage' => $percentage
+            ]);
         }
+
 
         return $this->renderForm('quiz_participants/passer-quiz.html.twig', [
             'quiz_participant' => $quizParticipant,
