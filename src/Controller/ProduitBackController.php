@@ -17,6 +17,9 @@ class ProduitBackController extends AbstractController
     #[Route('/', name: 'back_produit_index', methods: ['GET'])]
     public function index(ProduitRepository $produitRepository): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         return $this->render('produit/indexB.html.twig', [
             'produits' => $produitRepository->findAll(),
         ]);
@@ -25,6 +28,9 @@ class ProduitBackController extends AbstractController
     #[Route('/new', name: 'back_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         $produit = new Produit();
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
@@ -54,6 +60,9 @@ class ProduitBackController extends AbstractController
     #[Route('/{id}/edit', name: 'back_produit_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
@@ -79,6 +88,9 @@ class ProduitBackController extends AbstractController
     #[Route('/{id}/delete', name: 'back_produit_delete', methods: ['GET'])]
     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         $entityManager->remove($produit);
         $entityManager->flush();
 

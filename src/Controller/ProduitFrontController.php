@@ -18,6 +18,9 @@ class ProduitFrontController extends AbstractController
     #[Route('/', name: 'app_produit_index', methods: ['GET'])]
     public function index(ProduitRepository $produitRepository, AvisProduitRepository $avisProduitRepository): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         $products = $produitRepository->findAll();
 
         foreach ($products as $product) {
@@ -44,6 +47,9 @@ class ProduitFrontController extends AbstractController
     #[Route('/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         $produit = new Produit();
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
@@ -64,6 +70,9 @@ class ProduitFrontController extends AbstractController
     #[Route('/{id}', name: 'app_produit_show', methods: ['GET'])]
     public function show(Produit $produit): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         return $this->render('produit/show.html.twig', [
             'produit' => $produit,
             'avis' => $produit->getAvisProduits(),
@@ -73,6 +82,9 @@ class ProduitFrontController extends AbstractController
     #[Route('/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
@@ -91,6 +103,9 @@ class ProduitFrontController extends AbstractController
     #[Route('/{id}', name: 'app_produit_delete', methods: ['POST'])]
     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
+        if (!$this->getUser())
+            return $this->redirectToRoute('app_login');
+
         if ($this->isCsrfTokenValid('delete' . $produit->getId(), $request->request->get('_token'))) {
             $entityManager->remove($produit);
             $entityManager->flush();
