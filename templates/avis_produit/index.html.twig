@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AvisProduit index{% endblock %}
+
+{% block body %}
+    <h1>AvisProduit index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Contenu</th>
+                <th>Note</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for avis_produit in avis_produits %}
+            <tr>
+                <td>{{ avis_produit.id }}</td>
+                <td>{{ avis_produit.contenu }}</td>
+                <td>{{ avis_produit.note }}</td>
+                <td>
+                    <a href="{{ path('app_avis_produit_show', {'id': avis_produit.id}) }}">show</a>
+                    <a href="{{ path('app_avis_produit_edit', {'id': avis_produit.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_avis_produit_new') }}">Create new</a>
+{% endblock %}

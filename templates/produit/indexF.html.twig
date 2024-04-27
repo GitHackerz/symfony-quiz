@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <section class="flex flex-col gap-10">
+        <div class="inline-flex items-center justify-between ">
+            <div class="inline-flex items-center gap-3">
+                <label for="sort" class="text-sm">Trier par :</label>
+                <select name="tri" id="sort" class="text-sm">
+                    <option value="asc">Nom croissant</option>
+                    <option value="desc">Nom décroissant</option>
+                </select>
+            </div>
+            <div class="inline-flex items-center gap-3">
+                <label for="tri" class="text-sm">Rechercher :</label>
+                <input id="search" type="text" class="text-sm" placeholder="Rechercher un produit">
+            </div>
+        </div>
+        <div class="grid grid-cols-3 gap-3" id="cards">
+            {% for produit in produits %}
+                <div class="card relative group overflow-hidden rounded-lg border dark:border-gray-800 w-[300px]">
+                    <a class="absolute inset-0 z-10" href="{{ path('app_produit_show', {id: produit.id}) }}">
+                        <span class="sr-only">View</span>
+                    </a>
+                    <img src="{{ asset('uploads/'~produit.image) }}"
+                         class="object-cover"
+                         style="width: 300px">
+                    <div class="p-4 grid gap-2 dark:text-gray-800">
+                        <div class="flex items-start gap-2">
+                            <div class="text-xs">
+                                {{ produit.matiere }}
+                            </div>
+                        </div>
+                        <h3 class="card-nom font-semibold text-base md:text-xl line-clamp-2">
+                            {{ produit.nom }}
+                        </h3>
+                        <div class="flex items-center gap-2 text-sm">
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="text-yellow-400">
+                                    {{ produit.noteMoy ? produit.noteMoy | number_format(2, '.', ',') : '0.0' }}
+                                </span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="yellow-400" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="w-5 h-5 fill-primary">
+                                    <polygon
+                                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    {% block jquery %}
+        <script>
+            $(document).ready(function () {
+                $("#search").on("keyup", function () {
+                    var value = $(this).val().toLowerCase();
+                    $(".card").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+
+                $("#sort").change(function () {
+                    var value = $(this).val();
+                    if (value == "asc") {
+                        var sortedDivs = $(".card").sort(function (a, b) {
+                            return $(a).find(".card-nom").text().localeCompare($(b).find(".card-nom").text());
+                        });
+                        $("#cards").html(sortedDivs);
+                    } else if (value == "desc") {
+                        var sortedDivs = $(".card").sort(function (a, b) {
+                            return $(b).find(".card-nom").text().localeCompare($(a).find(".card-nom").text());
+                        });
+                        $("#cards").html(sortedDivs);
+                    }
+                });
+            });
+        </script>
+    {% endblock %}
+{% endblock %}

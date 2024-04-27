@@ -60,10 +60,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'participant', targetEntity: QuizParticipants::class)]
     private Collection $quizParticipants;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: AvisProduit::class)]
+    private Collection $avisProduits;
+
     public function __construct()
     {
         $this->quizzes = new ArrayCollection();
         $this->quizParticipants = new ArrayCollection();
+        $this->avisProduits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -268,6 +272,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($quizParticipant->getParticipant() === $this) {
                 $quizParticipant->setParticipant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AvisProduit>
+     */
+    public function getAvisProduits(): Collection
+    {
+        return $this->avisProduits;
+    }
+
+    public function addAvisProduit(AvisProduit $avisProduit): static
+    {
+        if (!$this->avisProduits->contains($avisProduit)) {
+            $this->avisProduits->add($avisProduit);
+            $avisProduit->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvisProduit(AvisProduit $avisProduit): static
+    {
+        if ($this->avisProduits->removeElement($avisProduit)) {
+            // set the owning side to null (unless already changed)
+            if ($avisProduit->getUser() === $this) {
+                $avisProduit->setUser(null);
             }
         }
 
