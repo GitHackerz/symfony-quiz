@@ -1,0 +1,162 @@
+{% extends 'security/base.html.twig' %}
+
+{% block title %}Register Now!{% endblock %}
+
+{% block content %}
+    {{ form_start(form) }}
+    {{ form_widget(form._token) }}
+    <div class="flex flex-col items-center justify-center py-20 mx-auto" style="width: 800px">
+        <form method="post" class=" rounded-lg border bg-card text-card-foreground shadow-sm px-0 w-full max-w-md">
+            <div class="flex flex-col space-y-1.5 p-6 text-center">
+                <h3 class="whitespace-nowrap tracking-tight text-3xl font-bold">Welcome back</h3>
+                <p class="text-sm text-muted-foreground">Enter your email below to login to your account</p>
+            </div>
+
+            <div class="p-6 space-y-4 flex flex-col w-full">
+                <div class="inline-flex items-center gap-2">
+                    <div class="mb-5 flex-1">
+                        <label for="nom"
+                               class="block mb-2 text-sm font-medium {{ form_errors(form.nom) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Nom</label>
+                        <input
+                                name="{{ field_name(form.nom) }}"
+                                value="{{ field_value(form.nom) }}"
+                                type="text"
+                                id="nom"
+                                class="{{ form_errors(form.nom) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}"
+                                placeholder="{{ field_label(form.nom) }}">
+                        <p class="mt-2 text-sm text-red-700 dark:text-red-500">{{ form_errors(form.nom) }}</p>
+                    </div>
+
+                    <div class="mb-5 flex-1">
+                        <label for="prenom"
+                               class="block mb-2 text-sm font-medium {{ form_errors(form.prenom) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Prénom</label>
+                        <input name="{{ field_name(form.prenom) }}"
+                               value="{{ field_value(form.prenom) }}"
+                               type="text"
+                               id="prenom"
+                               class="{{ form_errors(form.prenom) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}"
+                               placeholder="{{ field_label(form.prenom) }}">
+                        <p class="mt-2 text-sm text-red-700 dark:text-red-500">{{ form_errors(form.prenom) }}</p>
+                    </div>
+
+                    <div class="mb-5 flex-1">
+                        <label for="numTel"
+                               class="block mb-2 text-sm font-medium {{ form_errors(form.numTel) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Numéro
+                            de téléphone</label>
+                        <input name="{{ field_name(form.numTel) }}"
+                               value="{{ field_value(form.numTel) }}"
+                               type="text"
+                               id="numTel"
+                               class="{{ form_errors(form.numTel) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}"
+                               placeholder="{{ field_label(form.numTel) }}">
+                        <p class="mt-2 text-sm text-red-700 dark:text-red-500">{{ form_errors(form.numTel) }}</p>
+                    </div>
+                </div>
+                <div class="inline-flex items-center gap-2">
+                    <div class="mb-5 flex-1">
+                        <label for="email"
+                               class="block mb-2 text-sm font-medium {{ form_errors(form.email) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Email</label>
+                        <input name="{{ field_name(form.email) }}"
+                               value="{{ field_value(form.email) }}"
+                               type="email"
+                               id="email"
+                               class="{{ form_errors(form.email) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}"
+                               placeholder="{{ field_label(form.email) }}">
+                        <p class="mt-2 text-sm text-red-700 dark:text-red-500">{{ form_errors(form.email) }}</p>
+                    </div>
+
+                    <div class="mb-5 flex-1">
+                        <label for="password"
+                               class="block mb-2 text-sm font-medium {{ form_errors(form.password) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Password</label>
+                        <input name="{{ field_name(form.password) }}"
+                               type="password"
+                               id="password"
+                               class="{{ form_errors(form.password) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}"
+                               placeholder="{{ field_label(form.password) }}">
+                        <p class="mt-2 text-sm text-red-700 dark:text-red-500">{{ form_errors(form.password) }}</p>
+                    </div>
+
+                    <div class="mb-5 flex-1">
+                        <label for="role"
+                               class="block mb-2 text-sm font-medium {{ form_errors(form.role) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Role</label>
+                        <select name="{{ field_name(form.role) }}"
+                                id="role"
+                                class="{{ form_errors(form.role) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}">
+                            <option value="1" {{ field_value(form.role) == 'etudiant' ? 'selected' : '' }}>Etudiant
+                            </option>
+                            <option value="2" {{ field_value(form.role) == 'enseignant' ? 'selected' : '' }}>
+                                Enseignant
+                            </option>
+                        </select>
+                        <p class="mt-2 text-sm text-red-700 dark:text-red-500">{{ form_errors(form.role) }}</p>
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <label for="section"
+                           class="block mb-2 text-sm font-medium {{ form_errors(form.section) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Section</label>
+                    <select name="{{ field_name(form.section) }}"
+                            id="section"
+                            class="{{ form_errors(form.section) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}">
+                        <option value="Mathematique" {{ (field_value(form.section) == 'Mathematique') ? 'selected' : '' }}>
+                            Mathematique
+                        </option>
+                        <option value="Physique" {{ (field_value(form.section) == 'Physique') ? 'selected' : '' }}>
+                            Physique
+                        </option>
+                        <option value="Chimie" {{ (field_value(form.section) == 'Chimie') ? 'selected' : '' }}>Chimie
+                        </option>
+                        <option value="Biologie" {{ (field_value(form.section) == 'Biologie') ? 'selected' : '' }}>
+                            Biologie
+                        </option>
+                        <option value="Informatique" {{ (field_value(form.section) == 'Informatique') ? 'selected' : '' }}>
+                            Informatique
+                        </option>
+                        <option value="Algebre" {{ (field_value(form.section) == 'Algebre') ? 'selected' : '' }}>
+                            Algebre
+                        </option>
+                        <option value="Analyse" {{ (field_value(form.section) == 'Analyse') ? 'selected' : '' }}>
+                            Analyse
+                        </option>
+                        <option value="Francais" {{ (field_value(form.section) == 'Francais') ? 'selected' : '' }}>
+                            Francais
+                        </option>
+                        <option value="Arabe" {{ (field_value(form.section) == 'Arabe') ? 'selected' : '' }}>Arabe
+                        </option>
+                        <option value="English" {{ (field_value(form.section) == 'English') ? 'selected' : '' }}>
+                            English
+                        </option>
+                    </select>
+                    <p class="mt-2 text-sm text-red-700 dark:text-red-500">{{ form_errors(form.section) }}</p>
+                </div>
+
+                <div class="mb-5">
+                    <label for="image"
+                           class="block mb-2 text-sm font-medium {{ form_errors(form.image) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Image</label>
+                    <input
+                            name="{{ field_name(form.image) }}"
+                            type="file"
+                            id="image"
+                            class="{{ form_errors(form.image) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}">
+                    <p class="mt-2 text-sm text-red-700 dark:text-red-500">{{ form_errors(form.image) }}</p>
+                </div>
+
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+            </div>
+            <div class="flex items-center py-3 px-6 justify-center w-full">
+                <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-slate-900 text-white hover:bg-primary/90 h-10 px-4 py-2 w-full">
+                    Register
+                </button>
+            </div>
+            <div class="flex items-center px-6 text-center">
+                Already have an account?
+                <a class="underline" href="{{ path('app_login') }}" rel="ugc">
+                    Sign in
+                </a>
+            </div>
+        </form>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
