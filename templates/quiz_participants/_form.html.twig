@@ -3,7 +3,7 @@
 
     {% set index = 0 %}
 <h1 class="text-2xl font-bold text-gray-900 dark:text-white text-center">Quiz {{ quiz_participant.quiz.matiere }}</h1>
-<div id="timer" class="text-2xl font-bold text-gray-900 dark:text-white text-center">02:00</div>
+<div id="timer" class="text-2xl font-bold text-gray-900 dark:text-white text-center">{{ quiz_participant.quiz.dureeEnMinute }}:00</div>
 {% for question in questions %}
     {% set index = index + 1 %}
     <div class="mb-5">
@@ -59,7 +59,7 @@
 
 {% block javascripts %}
     <script>
-        let totalSeconds = 120; // 2 minutes
+        let totalSeconds = {{ quiz_participant.quiz.dureeEnMinute * 60 }};
 
         function pad(val) {
             return val > 9 ? val : "0" + val;

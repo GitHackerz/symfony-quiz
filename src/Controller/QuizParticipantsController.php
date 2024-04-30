@@ -48,7 +48,7 @@ class QuizParticipantsController extends AbstractController
         $sms = new SmsMessage("+21658906040", $smsMessage);
         $texter->send($sms);
 
-        $this->addFlash('success', 'Le Quiz a été démarré avec succès vous avez 2 minutes pour le terminer');
+        $this->addFlash('success', 'Le Quiz a été démarré avec succès vous avez ' . $quiz->getDureeEnMinute() . ' minutes pour le terminer');
 
         $quizParticipant = new QuizParticipants();
         $quizParticipant->setQuiz($quiz);
