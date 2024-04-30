@@ -115,7 +115,6 @@ class UserController extends AbstractController
     {
         if (!$this->getUser())
             return $this->redirectToRoute('app_login');
-
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	{{ form_start(form) }}
+	{{ form_widget(form._token) }}
+	<div class="mx-auto max-w-3xl space-y-8 py-12 px-4 sm:px-6 lg:px-8">
+		<div class="space-y-4">
+			<h1 class="text-3xl font-bold">Profile</h1>
+			<p class="text-gray-500 dark:text-gray-400">Update your profile information.</p>
+		</div>
+		<div class="grid grid-cols-2 gap-6">
+			<div>
+				<label for="nom" class="text-sm font-medium">Nom</label>
+				<input type="text" id="nom" name="{{ field_name(form.nom) }}" value="{{ field_value(form.nom) }}" placeholder="{{ field_label(form.nom) }}" class="{{ form_errors(form.nom) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}">
+			</div>
+			<div>
+				<label for="prenom" class="text-sm font-medium">Prenom</label>
+				<input type="text" id="prenom" name="{{ field_name(form.prenom) }}" value="{{ field_value(form.prenom) }}" placeholder="{{ field_label(form.prenom) }}" class="{{ form_errors(form.prenom) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}">
+			</div>
+			<div>
+				<label for="email" class="text-sm font-medium">Email</label>
+				<input type="email" id="email" name="{{ field_name(form.email) }}" value="{{ field_value(form.email) }}" placeholder="{{ field_label(form.email) }}" class="{{ form_errors(form.email) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}">
+			</div>
+			<div>
+				<label for="numTel" class="text-sm font-medium">Numéro de Téléphone</label>
+				<input type="text" id="numTel" name="{{ field_name(form.numTel) }}" value="{{ field_value(form.numTel) }}" placeholder="{{ field_label(form.numTel) }}" class="{{ form_errors(form.numTel) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}">
+			</div>
+
+			<div>
+				<label for="image" class="text-sm font-medium">Profile Picture</label>
+				<input type="file" id="image" name="{{ field_name(form.image) }}" class="{{ form_errors(form.image) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}">
+			</div>
+			{#            </div>#}
+		</div>
+		<div class="flex justify-end">
+			<button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-slate-800 text-white hover:bg-primary/90 h-10 px-4 py-2">
+				Save Changes
+			</button>
+		</div>
+	</div>
+	{{ form_end(form) }}
+{% endblock %}
