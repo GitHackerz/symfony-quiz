@@ -33,6 +33,7 @@ class QuizController extends AbstractController
             return $this->redirectToRoute('app_login');
 
         $quiz = new Quiz();
+        $quiz->setMatiere($this->getUser()->getSection());
         $quiz->setCreateur($this->getUser());
         $quiz->setDateCreation(new \DateTime('now', new \DateTimeZone('Africa/Tunis')));
         $form = $this->createForm(QuizType::class, $quiz);

@@ -58,7 +58,7 @@
                         {{ quiz.dureeEnMinute }} min
                     </td>
                     <td class="px-6 py-4">
-                        {{ quiz.disponibilitee }}
+                        {{ quiz.disponibilitee == 1 ? 'Oui' : 'Non'}}
                     </td>
                     <td class="px-6 py-4">
                         {{ quiz.createur ? quiz.createur.nom ~ ' ' ~ quiz.createur.prenom : 'No User' }}

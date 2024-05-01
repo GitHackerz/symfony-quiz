@@ -1,0 +1,25 @@
+<div>
+    <h1>Statistics Quiz Results</h1>
+    <p>Completed on {{ "now"|date("d M Y") }}</p>
+    <hr>
+    <p><strong>Quiz Title:</strong> {{ quizParticipant.quiz.matiere }} ({{ quizParticipant.quiz.code }})</p>
+    <p><strong>Your Score:</strong> {{ quizPercentage }}%</p>
+    <hr>
+    {% for question in questions %}
+        <div>
+            <p><strong>Question {{ loop.index }}:</strong> {{ question.titre }}</p>
+            <p><strong>Your Answer:</strong> {{ responses[question.id] == 1 ? question.choix1 :
+                responses[question.id] == 2 ? question.choix2 :
+                responses[question.id] == 3 ? question.choix3 : 'No Answer' }}</p>
+            <p><strong>Correct Answer:</strong> {{ question.reponseCorrecte == 1 ? question.choix1 :
+                question.reponseCorrecte == 2 ? question.choix2 :
+                question.choix3 }}</p>
+            <p><strong>Outcome:</strong> {% if responses[question.id] == question.reponseCorrecte %}
+                    <span style="color: green;">Correct</span>
+                {% else %}
+                    <span style="color: red;">Incorrect</span>
+                {% endif %}</p>
+            <hr>
+        </div>
+    {% endfor %}
+</div>

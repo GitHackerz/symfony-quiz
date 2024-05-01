@@ -46,12 +46,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $section = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
+    // should be a phone number format : 58906040
+    #[Assert\Regex(pattern: '/^[0-9]{8}$/')]
     private ?string $numTel = null;
 
     #[ORM\OneToMany(mappedBy: 'createur', targetEntity: Quiz::class)]

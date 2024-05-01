@@ -8,6 +8,8 @@ use App\Entity\User;
 use App\Form\QuizParticipantsType;
 use App\Repository\QuizParticipantsRepository;
 use App\Repository\QuizRepository;
+use App\Service\MailerService;
+use App\Service\SmsService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,14 +41,12 @@ class QuizParticipantsController extends AbstractController
      * @throws TransportExceptionInterface
      */
     #[Route('/{id}/passer-quiz', name: 'app_quizparticipants_passerquiz', methods: ['GET', 'POST'])]
-    public function passerQuiz(Request $request, EntityManagerInterface $entityManager, Quiz $quiz, TexterInterface $texter): Response
+    public function passerQuiz(Request $request, EntityManagerInterface $entityManager, Quiz $quiz, MailerService $mailerService, SmsService $smsService): Response
     {
         if (!$this->getUser())
             return $this->redirectToRoute('app_login');
 
-        $smsMessage = "Tu as un nouveau quiz à passer " . $quiz->getMatiere() . " (" . $quiz->getCode() . ")";
-        $sms = new SmsMessage("+21658906040", $smsMessage);
-        $texter->send($sms);
+        $smsService->sendSms("Tu as un nouveau quiz à passer " . $quiz->getMatiere() . " (" . $quiz->getCode() . ")");
 
         $this->addFlash('success', 'Le Quiz a été démarré avec succès vous avez ' . $quiz->getDureeEnMinute() . ' minutes pour le terminer');
 
@@ -86,6 +86,19 @@ class QuizParticipantsController extends AbstractController
             $percentage = ($quizParticipant->getScore() / $total) * 100;
             $entityManager->persist($quizParticipant);
             $entityManager->flush();
+
+            $mailerService->sendTwigEmail(
+                $this->getUser()->getEmail(),
+                'Résultat du Quiz',
+                'emails/quiz-result.html.twig',
+                [
+                    'quiz' => $quiz,
+                    'quizParticipant' => $quizParticipant,
+                    'questions' => $quiz->getQuestions(),
+                    'responses' => $responses,
+                    'quizPercentage' => $percentage
+                ]
+            );
 
             return $this->renderForm('quiz_participants/resultat-quiz.html.twig', [
                 'quiz_participant' => $quizParticipant,

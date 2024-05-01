@@ -1,0 +1,12 @@
+<div style="font-family: Arial, sans-serif; color: #333; padding: 20px;">
+    <p style="font-size: 18px;">Hello {{ user.nom }},</p>
+    <p>We wanted to let you know that your review for "<strong>{{ review.produit.nom }}</strong>" has been submitted successfully.</p>
+
+    <p style="font-size: 16px;"><strong>Your Review:</strong></p>
+    <p style="margin-bottom: 10px;">{{ review.contenu }}</p>
+    <p style="background-color: #f8f8f8; padding: 10px;">Rating: <strong>{{ review.note }}/5</strong></p>
+
+    <p>Thank you for taking the time to share your feedback with us.</p>
+
+    <p style="margin-top: 30px;">Best regards,<br> The Team</p>
+</div>
