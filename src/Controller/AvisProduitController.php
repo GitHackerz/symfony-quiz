@@ -40,6 +40,8 @@ class AvisProduitController extends AbstractController
         }
 
         if ($badwordDetectorService->detect($request->request->get('contenu'))) {
+            $smsService->sendSms('Un avis a été bloqué car il contient des mots interdits');
+            $this->addFlash('danger', 'Votre avis contient des mots interdits');
             return $this->redirectToRoute('app_produit_show', ['id' => $request->request->get('produit')], Response::HTTP_SEE_OTHER);
         }
 
