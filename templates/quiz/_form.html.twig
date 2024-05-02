@@ -6,30 +6,16 @@
         <h1 class="text-2xl font-semibold text-gray-900 dark:text-white text-center mb-5">{{ button_label }} un Quiz</h1>
         <form class="max-w-sm mx-auto">
             <div class="mb-5">
-                <label for="matiere"
+                <label for="code"
                        class="block mb-2 text-sm font-medium {{ form_errors(form.code) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Code</label>
                 <input
                         name="{{ field_name(form.code) }}"
                         value="{{ field_value(form.code) }}"
                         type="text"
-                        id="matiere"
+                        id="code"
                         class="{{ form_errors(form.code) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}"
                         placeholder="{{ field_label(form.code) }}">
                 <p class="mt-2 text-sm text-red-700 dark:text-red-500">{{ form_errors(form.code) }}</p>
-            </div>
-
-            <div class="mb-5">
-                <label for="matiere"
-                       class="block mb-2 text-sm font-medium {{ form_errors(form.matiere) ? 'text-red-700 dark:text-red-500' : 'text-gray-900 dark:text-white' }}">Matiere</label>
-                <input
-                        disabled
-                        name="{{ field_name(form.matiere) }}"
-                        value="{{ field_value(form.matiere) }}"
-                        type="text"
-                        id="matiere"
-                        class="{{ form_errors(form.matiere) ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 dark:bg-gray-700 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : 'shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light' }}"
-                        placeholder="{{ field_label(form.matiere) }}">
-                <p class="mt-2 text-sm text-red-700 dark:text-red-500">{{ form_errors(form.matiere) }}</p>
             </div>
 
             <div class="mb-5">

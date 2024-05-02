@@ -18,8 +18,7 @@ class Quiz
     private ?int $id = null;
 
 
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'Veuillez saisir une matière')]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $matiere = null;
 
     #[ORM\Column(name: 'dateCreation', type: Types::DATETIME_MUTABLE)]

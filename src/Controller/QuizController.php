@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Form\QuizType;
 use App\Repository\QuizRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,14 +28,14 @@ class QuizController extends AbstractController
     }
 
     #[Route('/new', name: 'app_quiz_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, LoggerInterface $logger): Response
     {
         if (!$this->getUser())
             return $this->redirectToRoute('app_login');
 
         $quiz = new Quiz();
-        $quiz->setMatiere($this->getUser()->getSection());
         $quiz->setCreateur($this->getUser());
+        $quiz->setMatiere($this->getUser()->getSection());
         $quiz->setDateCreation(new \DateTime('now', new \DateTimeZone('Africa/Tunis')));
         $form = $this->createForm(QuizType::class, $quiz);
         $form->handleRequest($request);

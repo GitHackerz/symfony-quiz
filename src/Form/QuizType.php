@@ -15,9 +15,6 @@ class QuizType extends AbstractType
             ->add('code', null, [
                 'label' => 'Code Quiz',
             ])
-            ->add('matiere', null, [
-                'label' => 'Matière',
-            ])
             ->add('dureeEnMinute', null, [
                 'label' => 'Durée en minute',
             ])
